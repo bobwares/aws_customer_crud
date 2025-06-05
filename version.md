@@ -12,3 +12,8 @@
 - Integrated jsonschema validation for customer payloads.
 - Updated test data to conform to customer_domain schema.
 - Updated application and configuration versions.
+
+## 0.0.4 - Thu Jun 05 20:20:35 UTC 2025
+- Added AWS Step Functions state machine for input validation and CRUD operations.
+- Introduced application logging.
+- Bumped project version to 0.0.4 and updated tests.

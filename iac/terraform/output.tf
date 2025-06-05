@@ -1,9 +1,9 @@
 # App: AWS Customer CRUD
 # Package: iac.terraform
 # File: output.tf
-# Version: 0.0.2
+# Version: 0.0.4
 # Author: Bobwares
-# Date: Thu Jun 05 17:10:52 UTC 2025
+# Date: Thu Jun 05 20:20:35 UTC 2025
 # Description: Terraform outputs for AWS resources.
 
 output "api_url" {
@@ -19,4 +19,9 @@ output "lambda_function_arn" {
 output "dynamodb_table_name" {
   value       = aws_dynamodb_table.customer_domain.name
   description = "Name of the DynamoDB table"
+}
+
+output "state_machine_arn" {
+  value       = aws_sfn_state_machine.crud_state_machine.arn
+  description = "ARN of the Step Functions state machine"
 }

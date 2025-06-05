@@ -1,9 +1,9 @@
 # App: AWS Customer CRUD
 # Package: src
 # File: utils.py
-# Version: 0.0.3
+# Version: 0.0.4
 # Author: Bobwares
-# Date: Thu Jun 05 17:57:07 UTC 2025
+# Date: Thu Jun 05 20:20:35 UTC 2025
 # Description: Utility functions for AWS interactions.
 
 import json

@@ -1,9 +1,9 @@
 # App: AWS Customer CRUD
 # Package: tests
 # File: test_app.py
-# Version: 0.0.3
+# Version: 0.0.4
 # Author: Bobwares
-# Date: Thu Jun 05 17:57:23 UTC 2025
+# Date: Thu Jun 05 20:20:35 UTC 2025
 # Description: Unit tests for app module.
 
 import json
@@ -11,9 +11,10 @@ from unittest.mock import patch
 from src.app import lambda_handler
 
 
+@patch('src.app.logger')
 @patch('src.app.get_dynamodb_client')
 @patch('src.app.validate_jwt')
-def test_lambda_handler_create_customer(mock_validate_jwt, mock_get_dynamodb_client):
+def test_lambda_handler_create_customer(mock_validate_jwt, mock_get_dynamodb_client, mock_logger):
     """Test creating a customer."""
     mock_validate_jwt.return_value = True
     mock_client = mock_get_dynamodb_client.return_value
@@ -35,6 +36,7 @@ def test_lambda_handler_create_customer(mock_validate_jwt, mock_get_dynamodb_cli
     assert response['statusCode'] == 201
     assert json.loads(response['body'])['message'] == 'Customer created'
     mock_client.put_item.assert_called_once()
+    mock_logger.info.assert_any_call('Creating customer %s', '33333333-3333-3333-3333-333333333333')
 
 
 @patch('src.app.get_dynamodb_client')
