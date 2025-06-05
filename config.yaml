@@ -1,0 +1,15 @@
+# App: AWS Customer CRUD
+# Package: project_root
+# File: config.yaml
+# Version: 0.0.1
+# Author: Bobwares
+# Date: Thu Jun 5 14:41:42 UTC 2025
+# Description: Configuration for AWS resources.
+
+aws:
+  region: us-east-1
+  lambda:
+    timeout: 30
+    memory_size: 256
+dynamodb:
+  table_name: ExampleTable
