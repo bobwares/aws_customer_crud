@@ -1,9 +1,9 @@
 # App: AWS Customer CRUD
 # Package: iac
 # File: main.tf
-# Version: 0.0.5
+# Version: 0.0.6
 # Author: Bobwares
-# Date: Thu Jun 05 21:17:09 UTC 2025
+# Date: Thu Jun 05 21:45:11 UTC 2025
 # Description: Terraform configuration using Registry modules for Lambda and HTTP API Gateway quick create mode.
 #
 
@@ -67,14 +67,18 @@ module "http_api" {
     allow_origins = ["*"]
   }
 
-  integrations = {
+  routes = {
     "ANY /${var.resource}" = {
-      lambda_arn = module.lambda.lambda_function_arn
+      integration = {
+        lambda_arn = module.lambda.lambda_function_arn
+      }
     }
   }
 
-  default_stage_access_log_destination_arn = module.lambda.lambda_cloudwatch_log_group_arn
-  default_stage_access_log_format          = jsonencode({ requestId = "$context.requestId" })
+  stage_access_log_settings = {
+    destination_arn = module.lambda.lambda_cloudwatch_log_group_arn
+    format          = jsonencode({ requestId = "$context.requestId" })
+  }
 
   tags = {
     Project = "aws-step-functions"
