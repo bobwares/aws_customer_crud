@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/customer.schema.json",
+  "title": "Customer",
+  "description": "Canonical representation of a customer domain entity.",
+  "type": "object",
+  "required": [
+    "customerId",
+    "name",
+    "primaryEmail",
+    "createdAt",
+    "updatedAt",
+    "status"
+  ],
+
+  "properties": {
+    "customerId": {
+      "type": "string",
+      "description": "System-wide unique identifier (UUID v4 recommended).",
+      "pattern": "^[0-9a-fA-F-]{36}$"
+    },
+
+    "externalIds": {
+      "type": "object",
+      "description": "Identifiers in upstream / legacy systems keyed by system name.",
+      "additionalProperties": { "type": "string" },
+      "examples": [{ "salesforce": "0038W00002LhOTXQA3" }]
+    },
+
+    "name": {
+      "type": "object",
+      "required": ["first", "last"],
+      "properties": {
+        "first": { "type": "string", "maxLength": 100 },
+        "middle": { "type": "string", "maxLength": 100 },
+        "last": { "type": "string", "maxLength": 100 },
+        "prefix": { "type": "string", "maxLength": 20 },
+        "suffix": { "type": "string", "maxLength": 20 }
+      }
+    },
+
+    "primaryEmail": {
+      "type": "string",
+      "format": "email",
+      "maxLength": 254
+    },
+
+    "secondaryEmails": {
+      "type": "array",
+      "items": { "type": "string", "format": "email" },
+      "uniqueItems": true
+    },
+
+    "phoneNumbers": {
+      "type": "array",
+      "description": "E.164-formatted phone numbers with a label.",
+      "items": {
+        "type": "object",
+        "required": ["label", "number"],
+        "properties": {
+          "label": { "type": "string", "enum": ["mobile", "home", "work", "other"] },
+          "number": { "type": "string", "pattern": "^\\+[1-9]\\d{1,14}$" }
+        }
+      },
+      "uniqueItems": true
+    },
+
+    "addresses": {
+      "type": "array",
+      "description": "Physical mailing addresses with ISO-3166 country codes.",
+      "items": {
+        "type": "object",
+        "required": ["addressType", "line1", "city", "country"],
+        "properties": {
+          "addressType": {
+            "type": "string",
+            "enum": ["billing", "shipping", "home", "office", "other"]
+          },
+          "line1": { "type": "string", "maxLength": 255 },
+          "line2": { "type": "string", "maxLength": 255 },
+          "city":  { "type": "string", "maxLength": 100 },
+          "state": { "type": "string", "maxLength": 100 },
+          "postalCode": { "type": "string", "maxLength": 20 },
+          "country": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}$",
+            "description": "ISO-3166-1 alpha-2 country code"
+          }
+        }
+      }
+    },
+
+    "dateOfBirth": {
+      "type": "string",
+      "format": "date",
+      "description": "ISO-8601 date; nullable if unknown.",
+      "nullable": true
+    },
+
+    "status": {
+      "type": "string",
+      "enum": ["ACTIVE", "INACTIVE", "SUSPENDED", "DELETED"],
+      "description": "Lifecycle state of the customer record."
+    },
+
+    "customAttributes": {
+      "type": "object",
+      "description": "Open-ended key/value map for domain-specific extensions.",
+      "additionalProperties": true
+    },
+
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Record creation timestamp (UTC, ISO-8601)."
+    },
+
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last modification timestamp (UTC, ISO-8601)."
+    },
+
+    "_etag": {
+      "type": "string",
+      "description": "Opaque value for optimistic locking (e.g., DynamoDB version)."
+    }
+  },
+
+  "additionalProperties": false,
+  "examples": [
+    {
+      "customerId": "123e4567-e89b-12d3-a456-426614174000",
+      "externalIds": { "salesforce": "0038W00002LhOTXQA3" },
+      "name": { "first": "Jane", "last": "Doe" },
+      "primaryEmail": "jane.doe@example.com",
+      "phoneNumbers": [
+        { "label": "mobile", "number": "+14155550001" }
+      ],
+      "addresses": [
+        {
+          "addressType": "home",
+          "line1": "123 Main St",
+          "city": "Austin",
+          "state": "TX",
+          "postalCode": "78701",
+          "country": "US"
+        }
+      ],
+      "status": "ACTIVE",
+      "createdAt": "2025-06-05T14:32:11Z",
+      "updatedAt": "2025-06-05T14:32:11Z"
+    }
+  ]
+}
