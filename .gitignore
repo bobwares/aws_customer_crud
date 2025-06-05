@@ -1,0 +1,11 @@
+# App: AWS Customer CRUD
+# Package: project_root
+# File: .gitignore
+# Version: 0.0.1
+# Author: Bobwares
+# Date: Thu Jun 5 14:41:42 UTC 2025
+# Description: Git ignore file.
+
+__pycache__/
+*.pyc
+.lambda_function_payload.zip
