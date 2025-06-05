@@ -1,9 +1,9 @@
 # App: AWS Customer CRUD
 # Package: tests
 # File: test_app.py
-# Version: 0.0.2
+# Version: 0.0.3
 # Author: Bobwares
-# Date: Thu Jun 05 17:10:52 UTC 2025
+# Date: Thu Jun 05 17:57:23 UTC 2025
 # Description: Unit tests for app module.
 
 import json
@@ -21,7 +21,15 @@ def test_lambda_handler_create_customer(mock_validate_jwt, mock_get_dynamodb_cli
         'httpMethod': 'POST',
         'path': '/customers',
         'headers': {'Authorization': 'Bearer validtoken'},
-        'body': json.dumps({'customerId': '1', 'name': {'first': 'Item1', 'last': 'Test'}, 'primaryEmail': 't@example.com', 'createdAt': '2025-06-05T00:00:00Z', 'updatedAt': '2025-06-05T00:00:00Z', 'status': 'ACTIVE'})
+        'body': json.dumps({
+            'customerId': '33333333-3333-3333-3333-333333333333',
+            'name': {'first': 'Item1', 'last': 'Test'},
+            'primaryEmail': 't@example.com',
+            'phoneNumbers': [{'label': 'mobile', 'number': '+14155550003'}],
+            'status': 'ACTIVE',
+            'createdAt': '2025-06-05T00:00:00Z',
+            'updatedAt': '2025-06-05T00:00:00Z'
+        })
     }
     response = lambda_handler(event, None)
     assert response['statusCode'] == 201

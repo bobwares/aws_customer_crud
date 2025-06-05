@@ -1,15 +1,15 @@
 # App: AWS Customer CRUD
 # Package: src
 # File: app.py
-# Version: 0.0.2
+# Version: 0.0.3
 # Author: Bobwares
-# Date: Thu Jun 05 17:10:52 UTC 2025
+# Date: Thu Jun 05 17:57:23 UTC 2025
 # Description: AWS Lambda handler for CRUD operations on DynamoDB.
 
 import json
 from typing import Any, Dict
 from .models import Customer
-from .utils import get_dynamodb_client, validate_jwt
+from .utils import get_dynamodb_client, validate_jwt, validate_customer_schema
 
 
 def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
@@ -27,6 +27,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
 
     if http_method == "POST" and path == "/customers":
         body = json.loads(event["body"])
+        validate_customer_schema(body)
         item = Customer(**body)
         client.put_item(TableName=table, Item=item.to_dynamodb())
         return {
@@ -50,6 +51,7 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     if http_method == "PUT" and path.startswith("/customers/"):
         item_id = path.split("/")[-1]
         body = json.loads(event["body"])
+        validate_customer_schema(body | {"customerId": item_id})
         item = Customer(customerId=item_id, **body)
         client.put_item(TableName=table, Item=item.to_dynamodb())
         return {
