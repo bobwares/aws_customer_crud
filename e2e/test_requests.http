@@ -1,22 +1,25 @@
 # App: AWS Customer CRUD
 # Package: e2e
 # File: test_requests.http
-# Version: 0.0.1
+# Version: 0.0.2
 # Author: Bobwares
-# Date: Thu Jun 5 14:41:42 UTC 2025
+# Date: Thu Jun 05 17:10:52 UTC 2025
 # Description: Example HTTP requests for integration testing.
 
-### Create Item
-POST https://example.com/items
+### Create Customer
+POST https://example.com/customers
 Content-Type: application/json
 Authorization: Bearer <token>
 
 {
-  "id": "1",
-  "name": "Item1",
-  "description": "A test item"
+  "customerId": "1",
+  "name": {"first": "Alice", "last": "Smith"},
+  "primaryEmail": "alice@example.com",
+  "createdAt": "2025-06-05T00:00:00Z",
+  "updatedAt": "2025-06-05T00:00:00Z",
+  "status": "ACTIVE"
 }
 
-### Get Item
-GET https://example.com/items/1
+### Get Customer
+GET https://example.com/customers/1
 Authorization: Bearer <token>

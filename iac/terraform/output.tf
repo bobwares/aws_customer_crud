@@ -1,9 +1,9 @@
 # App: AWS Customer CRUD
 # Package: iac.terraform
 # File: output.tf
-# Version: 0.0.1
+# Version: 0.0.2
 # Author: Bobwares
-# Date: Thu Jun 5 14:41:42 UTC 2025
+# Date: Thu Jun 05 17:10:52 UTC 2025
 # Description: Terraform outputs for AWS resources.
 
 output "api_url" {
@@ -17,6 +17,6 @@ output "lambda_function_arn" {
 }
 
 output "dynamodb_table_name" {
-  value       = aws_dynamodb_table.example_table.name
+  value       = aws_dynamodb_table.customer_domain.name
   description = "Name of the DynamoDB table"
 }

@@ -1,22 +1,28 @@
 # App: AWS Customer CRUD
 # Package: iac.terraform
 # File: main.tf
-# Version: 0.0.1
+# Version: 0.0.2
 # Author: Bobwares
-# Date: Thu Jun 5 14:41:42 UTC 2025
+# Date: Thu Jun 05 17:10:52 UTC 2025
 # Description: Terraform configuration for CRUD API.
 
 provider "aws" {
   region = var.aws_region
 }
 
-resource "aws_dynamodb_table" "example_table" {
+resource "aws_dynamodb_table" "customer_domain" {
   name         = var.dynamodb_table_name
   billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "id"
+  hash_key     = "pk"
+  range_key    = "sk"
 
   attribute {
-    name = "id"
+    name = "pk"
+    type = "S"
+  }
+
+  attribute {
+    name = "sk"
     type = "S"
   }
 }
@@ -61,7 +67,7 @@ resource "aws_api_gateway_rest_api" "crud_api" {
 resource "aws_api_gateway_resource" "items_resource" {
   rest_api_id = aws_api_gateway_rest_api.crud_api.id
   parent_id   = aws_api_gateway_rest_api.crud_api.root_resource_id
-  path_part   = "items"
+  path_part   = "customers"
 }
 
 resource "aws_api_gateway_method" "items_method" {

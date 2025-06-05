@@ -1,9 +1,9 @@
 # App: AWS Customer CRUD
 # Package: src
 # File: utils.py
-# Version: 0.0.1
+# Version: 0.0.2
 # Author: Bobwares
-# Date: Thu Jun 5 14:41:42 UTC 2025
+# Date: Thu Jun 05 17:10:52 UTC 2025
 # Description: Utility functions for AWS interactions.
 
 import boto3

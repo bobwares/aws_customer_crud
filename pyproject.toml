@@ -1,14 +1,14 @@
 # App: AWS Customer CRUD
 # Package: project_root
 # File: pyproject.toml
-# Version: 0.0.1
+# Version: 0.0.2
 # Author: Bobwares
-# Date: Thu Jun 5 14:41:42 UTC 2025
+# Date: Thu Jun 05 17:10:34 UTC 2025
 # Description: Project configuration.
 
 [tool.poetry]
 name = "aws-customer-crud"
-version = "0.0.1"
+version = "0.0.2"
 description = "AWS Lambda CRUD application"
 authors = ["Bobwares <bobwares@example.com>"]
 

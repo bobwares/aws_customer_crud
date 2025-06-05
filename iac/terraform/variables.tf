@@ -1,9 +1,9 @@
 # App: AWS Customer CRUD
 # Package: iac.terraform
 # File: variables.tf
-# Version: 0.0.1
+# Version: 0.0.2
 # Author: Bobwares
-# Date: Thu Jun 5 14:41:42 UTC 2025
+# Date: Thu Jun 05 17:10:52 UTC 2025
 # Description: Terraform variables for AWS resources.
 
 variable "aws_region" {
@@ -15,5 +15,5 @@ variable "aws_region" {
 variable "dynamodb_table_name" {
   description = "Name of the DynamoDB table"
   type        = string
-  default     = "ExampleTable"
+  default     = "CustomerDomain"
 }
