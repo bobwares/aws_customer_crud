@@ -1,9 +1,9 @@
 # App: AWS Customer CRUD
 # Package: iac
 # File: main.tf
-# Version: 0.0.6
+# Version: 0.0.7
 # Author: Bobwares
-# Date: Thu Jun 05 21:45:11 UTC 2025
+# Date: Thu Jun 05 22:00:00 UTC 2025
 # Description: Terraform configuration using Registry modules for Lambda and HTTP API Gateway quick create mode.
 #
 
@@ -93,7 +93,7 @@ resource "aws_lambda_permission" "allow_apigateway" {
   action        = "lambda:InvokeFunction"
   function_name = module.lambda.lambda_function_name
   principal     = "apigateway.amazonaws.com"
-  source_arn    = "${module.http_api.apigatewayv2_api_execution_arn}/*/*"
+  source_arn    = "${module.http_api.api_execution_arn}/*/*"
 }
 
 ########################

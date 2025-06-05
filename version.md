@@ -28,3 +28,7 @@
 - Updated outputs to use module output
 - Bumped project version to 0.0.6
 
+## 0.0.7 - Thu Jun 05 22:00:00 UTC 2025
+- Fixed http_api execution ARN reference for Lambda permission
+- Bumped project version to 0.0.7
+

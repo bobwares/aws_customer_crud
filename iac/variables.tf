@@ -1,9 +1,9 @@
 # App: AWS Customer CRUD
 # Package: iac
 # File: variables.tf
-# Version: 0.0.6
+# Version: 0.0.7
 # Author: Bobwares
-# Date: Thu Jun 05 21:45:11 UTC 2025
+# Date: Thu Jun 05 22:00:00 UTC 2025
 
 # Description: Input variables for Lambda and API Gateway configuration.
 #
