@@ -7,3 +7,8 @@
 - Added single table DynamoDB design with CustomerDomain table.
 - Updated application code and tests for Customer model.
 - Added batch loader script and sample dataset.
+
+## 0.0.3 - Thu Jun 05 17:58:25 UTC 2025
+- Integrated jsonschema validation for customer payloads.
+- Updated test data to conform to customer_domain schema.
+- Updated application and configuration versions.
