@@ -17,3 +17,12 @@
 - Added AWS Step Functions state machine for input validation and CRUD operations.
 - Introduced application logging.
 - Bumped project version to 0.0.4 and updated tests.
+
+## 0.0.5 - Thu Jun 05 21:17:49 UTC 2025
+- Added new Terraform configuration using registry modules for Lambda and HTTP API Gateway.
+- Bumped project version to 0.0.5.
+
+## 0.0.6 - Thu Jun 05 21:45:11 UTC 2025
+- Fixed Terraform configuration for API Gateway module
+- Updated outputs to use module output
+- Bumped project version to 0.0.6
