@@ -1,9 +1,9 @@
 # App: AWS Customer CRUD
 # Package: project_root
 # File: config.yaml
-# Version: 0.0.3
+# Version: 0.0.4
 # Author: Bobwares
-# Date: Thu Jun 05 17:57:23 UTC 2025
+# Date: Thu Jun 05 20:20:35 UTC 2025
 # Description: Configuration for AWS resources.
 
 aws:
