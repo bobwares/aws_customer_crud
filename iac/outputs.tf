@@ -13,6 +13,6 @@ output "lambda_function_name" {
 }
 
 output "api_endpoint" {
-  value       = module.http_api.api_endpoint
+value       = module.http_api.api_endpoint
   description = "API Gateway endpoint URL"
 }

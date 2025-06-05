@@ -4,6 +4,7 @@
 # Version: 0.0.6
 # Author: Bobwares
 # Date: Thu Jun 05 21:45:11 UTC 2025
+
 # Description: Input variables for Lambda and API Gateway configuration.
 #
 

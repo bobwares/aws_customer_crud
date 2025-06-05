@@ -9,6 +9,7 @@
 [tool.poetry]
 name = "aws-customer-crud"
 version = "0.0.6"
+
 description = "AWS Lambda CRUD application"
 authors = ["Bobwares <bobwares@example.com>"]
 
