@@ -7,5 +7,5 @@
 # Description: Codex configuration to run setup.sh on workspace creation.
 #
 
-on_create:
-  - ./setup.sh
+#on_create:
+#  - ./setup.sh
