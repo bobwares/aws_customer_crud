@@ -54,3 +54,7 @@
 ## 0.0.12 - Fri Jun 06 21:00:00 UTC 2025
 - Added random suffix to Terraform resource names to avoid name collisions during deployment
 - Updated provider configuration to include random provider
+
+## 0.0.13 - Fri Jun 06 21:23:54 UTC 2025
+- Fixed HTTP API integration URI configuration
+- Added payload format version for Lambda integration
