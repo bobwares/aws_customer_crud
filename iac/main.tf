@@ -1,9 +1,9 @@
 # App: AWS Customer CRUD
 # Package: iac
 # File: main.tf
-# Version: 0.0.12
+# Version: 0.0.13
 # Author: Bobwares
-# Date: Fri Jun 06 21:00:00 UTC 2025
+# Date: Fri Jun 06 21:23:54 UTC 2025
 # Description: Terraform configuration using Registry modules for Lambda and HTTP API Gateway quick create mode.
 #
 
@@ -83,7 +83,8 @@ module "http_api" {
   routes = {
     "ANY /${var.resource}" = {
       integration = {
-        lambda_arn = module.lambda.lambda_function_arn
+        uri                    = module.lambda.lambda_function_arn
+        payload_format_version = "2.0"
       }
     }
   }
