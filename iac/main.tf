@@ -1,9 +1,9 @@
 # App: AWS Customer CRUD
 # Package: iac
 # File: main.tf
-# Version: 0.0.13
+# Version: 0.0.14
 # Author: Bobwares
-# Date: Fri Jun 06 21:23:54 UTC 2025
+# Date: Fri Jun 06 22:00:43 UTC 2025
 # Description: Terraform configuration using Registry modules for Lambda and HTTP API Gateway quick create mode.
 #
 
@@ -32,6 +32,23 @@ provider "aws" {
 resource "random_string" "suffix" {
   length  = 6
   special = false
+}
+
+resource "aws_dynamodb_table" "customer_domain" {
+  name         = var.dynamodb_table_name
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "pk"
+  range_key    = "sk"
+
+  attribute {
+    name = "pk"
+    type = "S"
+  }
+
+  attribute {
+    name = "sk"
+    type = "S"
+  }
 }
 
 ########################
@@ -68,9 +85,9 @@ module "http_api" {
   source  = "terraform-aws-modules/apigateway-v2/aws"
   version = "5.2.1"
 
-  name          = "${var.app_name}-${var.env}-api-${var.function_name}-${random_string.suffix.result}"
-  description   = "HTTP API for ${var.function_name}"
-  protocol_type = "HTTP"
+  name                         = "${var.app_name}-${var.env}-api-${var.function_name}-${random_string.suffix.result}"
+  description                  = "HTTP API for ${var.function_name}"
+  protocol_type                = "HTTP"
   disable_execute_api_endpoint = false
   create_domain_name           = false
 
