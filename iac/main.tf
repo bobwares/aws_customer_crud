@@ -1,9 +1,9 @@
 # App: AWS Customer CRUD
 # Package: iac
 # File: main.tf
-# Version: 0.0.9
+# Version: 0.0.11
 # Author: Bobwares
-# Date: Fri Jun 06 15:56:09 UTC 2025
+# Date: Fri Jun 06 18:58:51 UTC 2025
 # Description: Terraform configuration using Registry modules for Lambda and HTTP API Gateway quick create mode.
 #
 
@@ -19,8 +19,10 @@ terraform {
 }
 
 provider "aws" {
-  alias  = "cloud"
-  region = "us-east-1"
+  region                      = "us-east-1"
+  skip_credentials_validation = true
+  skip_metadata_api_check     = true
+  skip_requesting_account_id  = true
 }
 
 ########################
