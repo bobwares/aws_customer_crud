@@ -1,9 +1,9 @@
 # App: AWS Customer CRUD
 # Package: iac.terraform
 # File: step_functions.tf
-# Version: 0.0.4
+# Version: 0.0.15
 # Author: Bobwares
-# Date: Thu Jun 05 20:20:35 UTC 2025
+# Date: Fri Jun 06 22:25:53 UTC 2025
 # Description: Step Functions state machine for orchestrating CRUD operations.
 
 resource "aws_iam_role" "sfn_role" {
@@ -28,7 +28,7 @@ resource "aws_iam_role_policy" "sfn_policy" {
     Statement = [{
       Effect   = "Allow"
       Action   = ["lambda:InvokeFunction"]
-      Resource = aws_lambda_function.crud_function.arn
+      Resource = module.lambda.lambda_function_arn
     }]
   })
 }
@@ -42,7 +42,7 @@ resource "aws_sfn_state_machine" "crud_state_machine" {
     States = {
       ValidateInput = {
         Type     = "Task"
-        Resource = aws_lambda_function.crud_function.arn
+        Resource = module.lambda.lambda_function_arn
         Parameters = {
           action   = "validate"
           "payload.$" = "$"
@@ -77,7 +77,7 @@ resource "aws_sfn_state_machine" "crud_state_machine" {
       }
       Create = {
         Type     = "Task"
-        Resource = aws_lambda_function.crud_function.arn
+        Resource = module.lambda.lambda_function_arn
         Parameters = {
           action   = "create"
           "payload.$" = "$"
@@ -86,7 +86,7 @@ resource "aws_sfn_state_machine" "crud_state_machine" {
       }
       Read = {
         Type     = "Task"
-        Resource = aws_lambda_function.crud_function.arn
+        Resource = module.lambda.lambda_function_arn
         Parameters = {
           action   = "read"
           "payload.$" = "$"
@@ -95,7 +95,7 @@ resource "aws_sfn_state_machine" "crud_state_machine" {
       }
       Update = {
         Type     = "Task"
-        Resource = aws_lambda_function.crud_function.arn
+        Resource = module.lambda.lambda_function_arn
         Parameters = {
           action   = "update"
           "payload.$" = "$"
@@ -104,7 +104,7 @@ resource "aws_sfn_state_machine" "crud_state_machine" {
       }
       Delete = {
         Type     = "Task"
-        Resource = aws_lambda_function.crud_function.arn
+        Resource = module.lambda.lambda_function_arn
         Parameters = {
           action   = "delete"
           "payload.$" = "$"
