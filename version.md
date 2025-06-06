@@ -46,3 +46,7 @@
 - Added setup.sh script to install Terraform and dependencies
 - Created codex.yaml to run setup script on workspace creation
 - Updated README with setup instructions
+
+## 0.0.11 - Fri Jun 06 18:58:51 UTC 2025
+- Fixed Terraform provider configuration by removing alias from aws provider
+- Bumped module version to 0.0.11
