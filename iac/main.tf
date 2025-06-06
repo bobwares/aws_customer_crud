@@ -1,9 +1,9 @@
 # App: AWS Customer CRUD
 # Package: iac
 # File: main.tf
-# Version: 0.0.8
+# Version: 0.0.9
 # Author: Bobwares
-# Date: Fri Jun 06 02:53:56 UTC 2025
+# Date: Fri Jun 06 15:56:09 UTC 2025
 # Description: Terraform configuration using Registry modules for Lambda and HTTP API Gateway quick create mode.
 #
 
@@ -30,17 +30,17 @@ module "lambda" {
   source  = "terraform-aws-modules/lambda/aws"
   version = "7.20.2"
 
-  function_name = "${var.env}-APIGatewayEventHandler-${var.function_name}"
+  function_name = "${var.app_name}-${var.env}-APIGatewayEventHandler-${var.function_name}"
   handler       = "app.lambda_handler"
   runtime       = "python3.11"
   source_path   = "../src"
   publish       = true
 
   environment_variables = {
-    LOG_GROUP_NAME = "${var.env}-APIGatewayEventHandler-${var.function_name}"
+    LOG_GROUP_NAME = "${var.app_name}-${var.env}-APIGatewayEventHandler-${var.function_name}"
   }
 
-  logging_log_group             = "${var.env}-APIGatewayEventHandler-${var.function_name}"
+  logging_log_group             = "${var.app_name}-${var.env}-APIGatewayEventHandler-${var.function_name}"
   logging_log_format            = "JSON"
   logging_system_log_level      = "INFO"
   logging_application_log_level = "INFO"
@@ -57,7 +57,7 @@ module "http_api" {
   source  = "terraform-aws-modules/apigateway-v2/aws"
   version = "5.2.1"
 
-  name          = "${var.env}-api-${var.function_name}"
+  name          = "${var.app_name}-${var.env}-api-${var.function_name}"
   description   = "HTTP API for ${var.function_name}"
   protocol_type = "HTTP"
   disable_execute_api_endpoint = false

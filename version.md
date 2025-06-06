@@ -38,3 +38,11 @@
 - Added Makefile with build/test/deploy commands
 - Documented dependencies in requirements.txt
 - Bumped project version to 0.0.8
+
+## 0.0.9 - Fri Jun 06 15:56:35 UTC 2025
+- Added app_name variable to Terraform for resource naming
+
+## 0.0.10 - Fri Jun 06 16:06:00 UTC 2025
+- Added setup.sh script to install Terraform and dependencies
+- Created codex.yaml to run setup script on workspace creation
+- Updated README with setup instructions
