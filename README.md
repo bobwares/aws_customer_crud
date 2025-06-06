@@ -7,6 +7,7 @@ action. Logging is enabled throughout the application for operational
 visibility.
 
 ## Development
+Run `setup.sh` to install Terraform and Python dependencies. The Codex project automatically executes this script when the workspace is created.
 
 The `Makefile` provides a few convenience targets:
 

@@ -1,9 +1,9 @@
 # App: AWS Customer CRUD
 # Package: iac
 # File: variables.tf
-# Version: 0.0.7
+# Version: 0.0.9
 # Author: Bobwares
-# Date: Thu Jun 05 22:00:00 UTC 2025
+# Date: Fri Jun 06 15:56:09 UTC 2025
 
 # Description: Input variables for Lambda and API Gateway configuration.
 #
@@ -24,4 +24,10 @@ variable "resource" {
   description = "API Gateway resource path (e.g., process)"
   type        = string
   default     = "process"
+}
+
+variable "app_name" {
+  description = "Application name used for resource naming"
+  type        = string
+  default     = "customer-domain"
 }

@@ -1,0 +1,11 @@
+# App: AWS Customer CRUD
+# Package: project_root
+# File: codex.yaml
+# Version: 0.0.10
+# Author: Bobwares
+# Date: Fri Jun 06 16:06:00 UTC 2025
+# Description: Codex configuration to run setup.sh on workspace creation.
+#
+
+on_create:
+  - ./setup.sh
