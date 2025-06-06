@@ -62,3 +62,7 @@
 ## 0.0.14 - Fri Jun 06 22:01:00 UTC 2025
 - Added DynamoDB table resource to Terraform configuration
 - Output DynamoDB table name
+
+## 0.0.15 - Fri Jun 06 22:25:53 UTC 2025
+- Updated step_functions.tf to use module lambda output
+- Bumped module version to 0.0.15
