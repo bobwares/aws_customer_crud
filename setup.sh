@@ -19,4 +19,9 @@ if ! command -v terraform >/dev/null 2>&1; then
     rm terraform.zip
 fi
 
+echo run terraform init
+
+terraform init
+
+
 pip install -r requirements.txt
