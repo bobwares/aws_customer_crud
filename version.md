@@ -32,3 +32,9 @@
 - Fixed http_api execution ARN reference for Lambda permission
 - Bumped project version to 0.0.7
 
+
+## 0.0.8 - Fri Jun 06 02:53:56 UTC 2025
+- Updated Terraform lambda runtime and API module defaults
+- Added Makefile with build/test/deploy commands
+- Documented dependencies in requirements.txt
+- Bumped project version to 0.0.8

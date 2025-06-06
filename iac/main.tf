@@ -1,9 +1,9 @@
 # App: AWS Customer CRUD
 # Package: iac
 # File: main.tf
-# Version: 0.0.7
+# Version: 0.0.8
 # Author: Bobwares
-# Date: Thu Jun 05 22:00:00 UTC 2025
+# Date: Fri Jun 06 02:53:56 UTC 2025
 # Description: Terraform configuration using Registry modules for Lambda and HTTP API Gateway quick create mode.
 #
 
@@ -31,9 +31,9 @@ module "lambda" {
   version = "7.20.2"
 
   function_name = "${var.env}-APIGatewayEventHandler-${var.function_name}"
-  handler       = "handler.processAPIGatewayEvent"
-  runtime       = "nodejs22.x"
-  source_path   = "../code/.build"
+  handler       = "app.lambda_handler"
+  runtime       = "python3.11"
+  source_path   = "../src"
   publish       = true
 
   environment_variables = {
@@ -60,6 +60,8 @@ module "http_api" {
   name          = "${var.env}-api-${var.function_name}"
   description   = "HTTP API for ${var.function_name}"
   protocol_type = "HTTP"
+  disable_execute_api_endpoint = false
+  create_domain_name           = false
 
   cors_configuration = {
     allow_headers = ["content-type", "x-amz-date", "authorization", "x-api-key", "x-amz-security-token", "x-amz-user-agent"]
