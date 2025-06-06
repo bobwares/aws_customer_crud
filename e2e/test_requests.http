@@ -7,9 +7,8 @@
 # Description: Example HTTP requests for integration testing.
 
 ### Create Customer
-POST https://example.com/customers
+POST https://8z9creg24d.execute-api.us-east-1.amazonaws.com/process
 Content-Type: application/json
-Authorization: Bearer <token>
 
 {
   "customerId": "55555555-5555-5555-5555-555555555555",
