@@ -1,9 +1,9 @@
 # App: AWS Customer CRUD
 # Package: iac
 # File: main.tf
-# Version: 0.0.11
+# Version: 0.0.12
 # Author: Bobwares
-# Date: Fri Jun 06 18:58:51 UTC 2025
+# Date: Fri Jun 06 21:00:00 UTC 2025
 # Description: Terraform configuration using Registry modules for Lambda and HTTP API Gateway quick create mode.
 #
 
@@ -15,6 +15,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "= 5.99.1"
     }
+    random = {
+      source  = "hashicorp/random"
+      version = ">= 3.5.1"
+    }
   }
 }
 
@@ -25,6 +29,11 @@ provider "aws" {
   skip_requesting_account_id  = true
 }
 
+resource "random_string" "suffix" {
+  length  = 6
+  special = false
+}
+
 ########################
 # Lambda Function (Registry Module)
 ########################
@@ -32,17 +41,17 @@ module "lambda" {
   source  = "terraform-aws-modules/lambda/aws"
   version = "7.20.2"
 
-  function_name = "${var.app_name}-${var.env}-APIGatewayEventHandler-${var.function_name}"
+  function_name = "${var.app_name}-${var.env}-APIGatewayEventHandler-${var.function_name}-${random_string.suffix.result}"
   handler       = "app.lambda_handler"
   runtime       = "python3.11"
   source_path   = "../src"
   publish       = true
 
   environment_variables = {
-    LOG_GROUP_NAME = "${var.app_name}-${var.env}-APIGatewayEventHandler-${var.function_name}"
+    LOG_GROUP_NAME = "${var.app_name}-${var.env}-APIGatewayEventHandler-${var.function_name}-${random_string.suffix.result}"
   }
 
-  logging_log_group             = "${var.app_name}-${var.env}-APIGatewayEventHandler-${var.function_name}"
+  logging_log_group             = "${var.app_name}-${var.env}-APIGatewayEventHandler-${var.function_name}-${random_string.suffix.result}"
   logging_log_format            = "JSON"
   logging_system_log_level      = "INFO"
   logging_application_log_level = "INFO"
@@ -59,7 +68,7 @@ module "http_api" {
   source  = "terraform-aws-modules/apigateway-v2/aws"
   version = "5.2.1"
 
-  name          = "${var.app_name}-${var.env}-api-${var.function_name}"
+  name          = "${var.app_name}-${var.env}-api-${var.function_name}-${random_string.suffix.result}"
   description   = "HTTP API for ${var.function_name}"
   protocol_type = "HTTP"
   disable_execute_api_endpoint = false
