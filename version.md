@@ -50,3 +50,7 @@
 ## 0.0.11 - Fri Jun 06 18:58:51 UTC 2025
 - Fixed Terraform provider configuration by removing alias from aws provider
 - Bumped module version to 0.0.11
+
+## 0.0.12 - Fri Jun 06 21:00:00 UTC 2025
+- Added random suffix to Terraform resource names to avoid name collisions during deployment
+- Updated provider configuration to include random provider

@@ -1,9 +1,9 @@
 # App: AWS Customer CRUD
 # Package: project_root
 # File: Makefile
-# Version: 0.0.8
+# Version: 0.0.9
 # Author: Bobwares
-# Date: Fri Jun 06 02:53:56 UTC 2025
+# Date: Fri Jun 06 21:00:00 UTC 2025
 # Description: Convenience targets for build, test, and deployment.
 #
 
@@ -16,7 +16,7 @@ test:
 	pytest -q
 
 plan:
-	cd iac && terraform init && terraform plan
+	cd iac && terraform init -upgrade && terraform plan
 
 deploy:
-	cd iac && terraform apply -auto-approve
+	cd iac && terraform init -upgrade && terraform apply -auto-approve
