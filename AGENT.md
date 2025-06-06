@@ -37,3 +37,7 @@ App Name:  AWS Customer CRUD
 
 - Refer to ./docs/aws-single-table-crud-python.md for instructions for generating application
 - Refer to ./schemas/customer_domain.json for the domain objects.
+
+# References
+
+https://github.com/hashicorp/terraform

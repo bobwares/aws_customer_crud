@@ -9,7 +9,7 @@
 
 set -euo pipefail
 
-TERRAFORM_VERSION="1.7.5"
+TERRAFORM_VERSION="1.12.1"
 
 if ! command -v terraform >/dev/null 2>&1; then
     echo "Installing Terraform ${TERRAFORM_VERSION}"
