@@ -58,3 +58,7 @@
 ## 0.0.13 - Fri Jun 06 21:23:54 UTC 2025
 - Fixed HTTP API integration URI configuration
 - Added payload format version for Lambda integration
+
+## 0.0.14 - Fri Jun 06 22:01:00 UTC 2025
+- Added DynamoDB table resource to Terraform configuration
+- Output DynamoDB table name

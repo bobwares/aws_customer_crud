@@ -1,9 +1,9 @@
 # App: AWS Customer CRUD
 # Package: iac
 # File: variables.tf
-# Version: 0.0.9
+# Version: 0.0.10
 # Author: Bobwares
-# Date: Fri Jun 06 15:56:09 UTC 2025
+# Date: Fri Jun 06 22:00:36 UTC 2025
 
 # Description: Input variables for Lambda and API Gateway configuration.
 #
@@ -30,4 +30,10 @@ variable "app_name" {
   description = "Application name used for resource naming"
   type        = string
   default     = "customer-domain"
+}
+
+variable "dynamodb_table_name" {
+  description = "Name of the DynamoDB table"
+  type        = string
+  default     = "CustomerDomain"
 }
