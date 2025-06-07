@@ -21,7 +21,7 @@ variable "function_name" {
 }
 
 variable "resource" {
-  description = "API Gateway resource path (e.g., process)"
+  description = "API Gateway resource path"
   type        = string
   default     = "customers"
 }
@@ -32,8 +32,3 @@ variable "app_name" {
   default     = "customer-domain"
 }
 
-variable "dynamodb_table_name" {
-  description = "Name of the DynamoDB table"
-  type        = string
-  default     = "customer-domain"
-}

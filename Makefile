@@ -26,4 +26,4 @@ plan:
 	cd iac && terraform init -upgrade && terraform plan
 	
 deploy:
-	cd iac && terraform init -upgrade && terraform apply -auto-approve
+	cd iac  && terraform apply -auto-approve

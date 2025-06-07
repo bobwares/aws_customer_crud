@@ -17,7 +17,3 @@ output "api_endpoint" {
   description = "API Gateway endpoint URL"
 }
 
-output "dynamodb_table_name" {
-  value       = aws_dynamodb_table.customer_domain.name
-  description = "Name of the DynamoDB table"
-}

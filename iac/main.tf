@@ -1,23 +1,19 @@
 # App: AWS Customer CRUD
 # Package: iac
 # File: main.tf
-# Version: 0.0.15
+# Version: 0.0.18
 # Author: Bobwares
-# Date: Sat Jun 07 01:05:00 UTC 2025
-# Description: Terraform configuration using Registry modules for Lambda and HTTP API Gateway quick create mode.
+# Date: Sat Jun 07 01:45:00 UTC 2025
+# Description: Lambda + HTTP API without random suffixes or unsupported inputs.
 #
 
 terraform {
-  required_version = ">= 1.12.1"
+  required_version = ">= 1.5.0"
 
   required_providers {
     aws = {
       source  = "hashicorp/aws"
       version = "= 5.99.1"
-    }
-    random = {
-      source  = "hashicorp/random"
-      version = ">= 3.5.1"
     }
   }
 }
@@ -29,46 +25,27 @@ provider "aws" {
   skip_requesting_account_id  = true
 }
 
-resource "random_string" "suffix" {
-  length  = 6
-  special = false
-}
-
-resource "aws_dynamodb_table" "customer_domain" {
-  name         = var.dynamodb_table_name
-  billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "pk"
-  range_key    = "sk"
-
-  attribute {
-    name = "pk"
-    type = "S"
-  }
-
-  attribute {
-    name = "sk"
-    type = "S"
-  }
-}
-
 ########################
-# Lambda Function (Registry Module)
+# Lambda Function
 ########################
 module "lambda" {
   source  = "terraform-aws-modules/lambda/aws"
   version = "7.20.2"
 
-  function_name = "${var.app_name}-${var.env}-APIGatewayEventHandler-${var.function_name}-${random_string.suffix.result}"
+  function_name = "${var.app_name}-${var.env}-lambda-${var.function_name}"
   handler       = "app.lambda_handler"
   runtime       = "python3.11"
   source_path   = ["../src", "../schema"]
   publish       = true
 
+  # Default role created by the module already has AWSLambdaBasicExecutionRole
+  create_role = true
+
   environment_variables = {
-    LOG_GROUP_NAME = "${var.app_name}-${var.env}-APIGatewayEventHandler-${var.function_name}-${random_string.suffix.result}"
+    LOG_GROUP_NAME = "${var.app_name}-${var.env}-lambda-${var.function_name}"
   }
 
-  logging_log_group             = "${var.app_name}-${var.env}-APIGatewayEventHandler-${var.function_name}-${random_string.suffix.result}"
+  logging_log_group             = "${var.app_name}-${var.env}-lambda-${var.function_name}"
   logging_log_format            = "JSON"
   logging_system_log_level      = "INFO"
   logging_application_log_level = "INFO"
@@ -79,20 +56,25 @@ module "lambda" {
 }
 
 ########################
-# HTTP API Gateway (Registry Module - Quick Create)
+# HTTP API Gateway
 ########################
 module "http_api" {
   source  = "terraform-aws-modules/apigateway-v2/aws"
   version = "5.2.1"
 
-  name                         = "${var.app_name}-${var.env}-api-${var.function_name}-${random_string.suffix.result}"
-  description                  = "HTTP API for ${var.function_name}"
-  protocol_type                = "HTTP"
-  disable_execute_api_endpoint = false
-  create_domain_name           = false
+  name          = "${var.app_name}-${var.env}-api-${var.function_name}"
+  description   = "HTTP API for ${var.function_name}"
+  protocol_type = "HTTP"
 
   cors_configuration = {
-    allow_headers = ["content-type", "x-amz-date", "authorization", "x-api-key", "x-amz-security-token", "x-amz-user-agent"]
+    allow_headers = [
+      "content-type",
+      "x-amz-date",
+      "authorization",
+      "x-api-key",
+      "x-amz-security-token",
+      "x-amz-user-agent"
+    ]
     allow_methods = ["*"]
     allow_origins = ["*"]
   }
@@ -100,7 +82,17 @@ module "http_api" {
   routes = {
     "ANY /${var.resource}" = {
       integration = {
+        type                   = "AWS_PROXY"
         uri                    = module.lambda.lambda_function_arn
+        integration_method     = "POST"
+        payload_format_version = "2.0"
+      }
+    }
+    "ANY /${var.resource}/{proxy+}" = {
+      integration = {
+        type                   = "AWS_PROXY"
+        uri                    = module.lambda.lambda_function_arn
+        integration_method     = "POST"
         payload_format_version = "2.0"
       }
     }
@@ -125,13 +117,4 @@ resource "aws_lambda_permission" "allow_apigateway" {
   function_name = module.lambda.lambda_function_name
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${module.http_api.api_execution_arn}/*/*"
-}
-
-########################
-# Variable for source_code_hash
-########################
-variable "source_code_hash" {
-  description = "Hash of the source code package"
-  type        = string
-  default     = null
 }
