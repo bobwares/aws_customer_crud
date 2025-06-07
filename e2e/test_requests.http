@@ -1,10 +1,10 @@
 # App: AWS Customer CRUD
 # Package: e2e
 # File: test_requests.http
-# Version: 0.0.6
+# Version: 0.0.8
 # Author: Bobwares
-# Date: Sat Jun 07 01:41:18 UTC 2025
-# Description: Example HTTP request for hello world endpoint.
+# Date: Sat Jun 07 01:50:52 UTC 2025
+# Description: Example HTTP request for hello world endpoint at /customers.
 #
 ### Hello World
-GET https://example.com/
+GET https://example.com/customers
