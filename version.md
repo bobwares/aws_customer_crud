@@ -69,3 +69,6 @@
 
 ## 0.0.16 - Fri Jun 06 23:55:35 UTC 2025
 - Removed JWT token authorization from Lambda handler and tests
+## 0.0.17 - Fri Jun 06 23:59:00 UTC 2025
+- Added venv target to Makefile and IntelliJ configuration for virtual environment
+- Documented new command in README

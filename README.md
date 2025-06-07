@@ -11,7 +11,8 @@ Run `setup.sh` to install Terraform and Python dependencies. The Codex project a
 
 The `Makefile` provides a few convenience targets:
 
-- `make build` – install Python dependencies
+- `make venv` – create a Python virtual environment and install dependencies
+- `make build` – install Python dependencies using the virtual environment
 - `make test` – run unit tests
 - `make plan` – execute `terraform plan` from the `iac` directory
 - `make deploy` – deploy infrastructure with Terraform
