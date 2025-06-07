@@ -1,26 +1,26 @@
 # App: AWS Customer CRUD
 # Package: project_root
 # File: Makefile
-# Version: 0.0.12
+# Version: 0.0.13
 # Author: Bobwares
-# Date: Sat Jun 07 01:10:48 UTC 2025
+# Date: Sat Jun 07 22:35:00 UTC 2025
 # Description: Convenience targets for build, test, and deployment.
 #
 
-.PHONY: build test e2e plan deploy venv
+.PHONY: install run test e2e plan deploy
+install:
+        pip install -r requirements.txt
 
-venv:
-	python3 -m venv venv
-	./venv/bin/pip install -r requirements.txt
-	./venv/bin/pip install pytest
-
-build: venv
+run:
+        streamlit run src/app.py
 
 test:
-	./venv/bin/pytest -q
+        pytest -q
 
-e2e: venv
-	./venv/bin/python e2e/run_e2e.py
+build: install
+
+e2e:
+        python e2e/run_e2e.py
 
 plan:
 	cd iac && terraform init -upgrade && terraform plan
