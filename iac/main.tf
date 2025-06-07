@@ -1,9 +1,9 @@
 # App: AWS Customer CRUD
 # Package: iac
 # File: main.tf
-# Version: 0.0.18
+# Version: 0.0.19
 # Author: Bobwares
-# Date: Sat Jun 07 01:45:00 UTC 2025
+# Date: Sat Jun 07 03:07:26 UTC 2025
 # Description: Lambda + HTTP API without random suffixes or unsupported inputs.
 #
 
@@ -56,17 +56,14 @@ module "lambda" {
 }
 
 ########################
-# HTTP API Gateway
+# HTTP API Gateway without module
 ########################
-module "http_api" {
-  source  = "terraform-aws-modules/apigateway-v2/aws"
-  version = "5.2.1"
-
+resource "aws_apigatewayv2_api" "http_api" {
   name          = "${var.app_name}-${var.env}-api-${var.function_name}"
   description   = "HTTP API for ${var.function_name}"
   protocol_type = "HTTP"
 
-  cors_configuration = {
+  cors_configuration {
     allow_headers = [
       "content-type",
       "x-amz-date",
@@ -79,32 +76,39 @@ module "http_api" {
     allow_origins = ["*"]
   }
 
-  routes = {
-    "ANY /${var.resource}" = {
-      integration = {
-        type                   = "AWS_PROXY"
-        uri                    = module.lambda.lambda_function_arn
-        integration_method     = "POST"
-        payload_format_version = "2.0"
-      }
-    }
-    "ANY /${var.resource}/{proxy+}" = {
-      integration = {
-        type                   = "AWS_PROXY"
-        uri                    = module.lambda.lambda_function_arn
-        integration_method     = "POST"
-        payload_format_version = "2.0"
-      }
-    }
-  }
-
-  stage_access_log_settings = {
-    destination_arn = module.lambda.lambda_cloudwatch_log_group_arn
-    format          = jsonencode({ requestId = "$context.requestId" })
-  }
-
   tags = {
     Project = "aws-step-functions"
+  }
+}
+
+resource "aws_apigatewayv2_integration" "lambda" {
+  api_id                 = aws_apigatewayv2_api.http_api.id
+  integration_type       = "AWS_PROXY"
+  integration_uri        = module.lambda.lambda_function_arn
+  integration_method     = "POST"
+  payload_format_version = "2.0"
+}
+
+resource "aws_apigatewayv2_route" "default" {
+  api_id    = aws_apigatewayv2_api.http_api.id
+  route_key = "ANY /${var.resource}"
+  target    = "integrations/${aws_apigatewayv2_integration.lambda.id}"
+}
+
+resource "aws_apigatewayv2_route" "proxy" {
+  api_id    = aws_apigatewayv2_api.http_api.id
+  route_key = "ANY /${var.resource}/{proxy+}"
+  target    = "integrations/${aws_apigatewayv2_integration.lambda.id}"
+}
+
+resource "aws_apigatewayv2_stage" "default" {
+  api_id      = aws_apigatewayv2_api.http_api.id
+  name        = "$default"
+  auto_deploy = true
+
+  access_log_settings {
+    destination_arn = module.lambda.lambda_cloudwatch_log_group_arn
+    format          = jsonencode({ requestId = "$context.requestId" })
   }
 }
 
@@ -116,5 +120,5 @@ resource "aws_lambda_permission" "allow_apigateway" {
   action        = "lambda:InvokeFunction"
   function_name = module.lambda.lambda_function_name
   principal     = "apigateway.amazonaws.com"
-  source_arn    = "${module.http_api.api_execution_arn}/*/*"
+  source_arn    = "${aws_apigatewayv2_api.http_api.execution_arn}/*/*"
 }
