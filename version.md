@@ -72,3 +72,6 @@
 ## 0.0.17 - Fri Jun 06 23:59:00 UTC 2025
 - Added venv target to Makefile and IntelliJ configuration for virtual environment
 - Documented new command in README
+
+## 0.0.18 - Sat Jun 07 00:35:16 UTC 2025
+- Updated IntelliJ misc.xml for JDK 21 configuration
