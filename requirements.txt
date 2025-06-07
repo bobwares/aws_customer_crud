@@ -1,9 +1,9 @@
 # App: AWS Customer CRUD
 # Package: project_root
 # File: requirements.txt
-# Version: 0.0.8
+# Version: 0.0.9
 # Author: Bobwares
-# Date: Fri Jun  6 02:53:51 UTC 2025
+# Date: Sat Jun 07 01:10:48 UTC 2025
 # Description: Python dependencies for Lambda function.
 #
 
@@ -12,3 +12,4 @@ pydantic[email]>=1.10.2
 aws-lambda-powertools>=1.27.0
 python-jose>=3.3.0
 jsonschema>=4.18.0
+requests>=2.31.0

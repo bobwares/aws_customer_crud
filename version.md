@@ -75,3 +75,11 @@
 
 ## 0.0.18 - Sat Jun 07 00:35:16 UTC 2025
 - Updated IntelliJ misc.xml for JDK 21 configuration
+
+## 0.0.19 - Sat Jun 07 01:05:00 UTC 2025
+- Include schema directory in Lambda deployment package
+- Added unit test for source path configuration
+
+## 0.0.20 - Sat Jun 07 01:10:48 UTC 2025
+- Added e2e test runner and Makefile target
+- Updated requirements with requests library
