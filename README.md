@@ -14,5 +14,6 @@ The `Makefile` provides a few convenience targets:
 - `make venv` – create a Python virtual environment and install dependencies
 - `make build` – install Python dependencies using the virtual environment
 - `make test` – run unit tests
+- `make e2e` – run end-to-end HTTP tests
 - `make plan` – execute `terraform plan` from the `iac` directory
 - `make deploy` – deploy infrastructure with Terraform
