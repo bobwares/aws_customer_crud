@@ -1,16 +1,19 @@
 # App: AWS Customer CRUD
 # Package: project_root
 # File: Makefile
-# Version: 0.0.9
+# Version: 0.0.10
 # Author: Bobwares
-# Date: Fri Jun 06 21:00:00 UTC 2025
+# Date: Fri Jun 06 23:59:00 UTC 2025
 # Description: Convenience targets for build, test, and deployment.
 #
 
-.PHONY: build test plan deploy
+.PHONY: build test plan deploy venv
 
-build:
-	pip install -r requirements.txt
+venv:
+        python3 -m venv venv
+        ./venv/bin/pip install -r requirements.txt
+
+build: venv
 
 test:
 	pytest -q
