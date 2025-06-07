@@ -1,9 +1,9 @@
 # App: AWS Customer CRUD
 # Package: tests
 # File: test_app.py
-# Version: 0.0.4
+# Version: 0.0.5
 # Author: Bobwares
-# Date: Thu Jun 05 20:20:35 UTC 2025
+# Date: Fri Jun 06 23:55:35 UTC 2025
 # Description: Unit tests for app module.
 
 import json
@@ -13,15 +13,13 @@ from src.app import lambda_handler
 
 @patch('src.app.logger')
 @patch('src.app.get_dynamodb_client')
-@patch('src.app.validate_jwt')
-def test_lambda_handler_create_customer(mock_validate_jwt, mock_get_dynamodb_client, mock_logger):
+def test_lambda_handler_create_customer(mock_get_dynamodb_client, mock_logger):
     """Test creating a customer."""
-    mock_validate_jwt.return_value = True
     mock_client = mock_get_dynamodb_client.return_value
     event = {
         'httpMethod': 'POST',
         'path': '/customers',
-        'headers': {'Authorization': 'Bearer validtoken'},
+        'headers': {},
         'body': json.dumps({
             'customerId': '33333333-3333-3333-3333-333333333333',
             'name': {'first': 'Item1', 'last': 'Test'},
@@ -40,16 +38,14 @@ def test_lambda_handler_create_customer(mock_validate_jwt, mock_get_dynamodb_cli
 
 
 @patch('src.app.get_dynamodb_client')
-@patch('src.app.validate_jwt')
-def test_lambda_handler_get_customer_not_found(mock_validate_jwt, mock_get_dynamodb_client):
+def test_lambda_handler_get_customer_not_found(mock_get_dynamodb_client):
     """Test retrieving a non-existent customer."""
-    mock_validate_jwt.return_value = True
     mock_client = mock_get_dynamodb_client.return_value
     mock_client.get_item.return_value = {}
     event = {
         'httpMethod': 'GET',
         'path': '/customers/999',
-        'headers': {'Authorization': 'Bearer validtoken'},
+        'headers': {},
         'body': None
     }
     response = lambda_handler(event, None)
