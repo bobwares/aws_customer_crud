@@ -91,3 +91,9 @@
 ## 0.0.22 - Sat Jun 07 01:41:18 UTC 2025
 - Simplified app to only return hello world for any request
 - Removed DynamoDB logic and updated tests and e2e scripts
+
+## 0.0.23 - Sat Jun 07 01:50:52 UTC 2025
+- Updated e2e tests to call /customers path
+
+## 0.0.24 - Sat Jun 07 02:00:33 UTC 2025
+- Added API_PATH option for e2e tests
