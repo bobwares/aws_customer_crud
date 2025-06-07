@@ -83,3 +83,7 @@
 ## 0.0.20 - Sat Jun 07 01:10:48 UTC 2025
 - Added e2e test runner and Makefile target
 - Updated requirements with requests library
+
+## 0.0.21 - Sat Jun 07 01:26:56 UTC 2025
+- Added GET /customers endpoint returning hello world
+- Updated unit tests
