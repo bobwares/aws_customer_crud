@@ -1,16 +1,16 @@
 # App: AWS Customer CRUD
 # Package: src
 # File: app.py
-# Version: 0.0.4
+# Version: 0.0.5
 # Author: Bobwares
-# Date: Thu Jun 05 20:20:35 UTC 2025
+# Date: Fri Jun 06 23:55:35 UTC 2025
 # Description: AWS Lambda handler for CRUD operations on DynamoDB.
 
 import json
 import logging
 from typing import Any, Dict
 from .models import Customer
-from .utils import get_dynamodb_client, validate_jwt, validate_customer_schema
+from .utils import get_dynamodb_client, validate_customer_schema
 
 
 logger = logging.getLogger(__name__)
@@ -23,13 +23,6 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     http_method = event["httpMethod"]
     path = event["path"]
     logger.info("Received request %s %s", http_method, path)
-    token = event["headers"].get("Authorization", "").split(" ")[1]
-    if not validate_jwt(token):
-        logger.warning("JWT validation failed")
-        return {
-            "statusCode": 401,
-            "body": json.dumps({"message": "Unauthorized"})
-        }
     table = "CustomerDomain"
 
     if http_method == "POST" and path == "/customers":

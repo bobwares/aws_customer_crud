@@ -66,3 +66,6 @@
 ## 0.0.15 - Fri Jun 06 22:25:53 UTC 2025
 - Updated step_functions.tf to use module lambda output
 - Bumped module version to 0.0.15
+
+## 0.0.16 - Fri Jun 06 23:55:35 UTC 2025
+- Removed JWT token authorization from Lambda handler and tests
