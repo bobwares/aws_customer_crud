@@ -97,3 +97,7 @@
 
 ## 0.0.24 - Sat Jun 07 02:00:33 UTC 2025
 - Added API_PATH option for e2e tests
+
+## 0.0.25 - Sat Jun 07 03:08:15 UTC 2025
+- Refactored Terraform to create HTTP API resources without using a module
+- Updated outputs and tests accordingly
