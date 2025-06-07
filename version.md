@@ -101,3 +101,7 @@
 ## 0.0.25 - Sat Jun 07 03:08:15 UTC 2025
 - Refactored Terraform to create HTTP API resources without using a module
 - Updated outputs and tests accordingly
+
+## 0.0.26 - Sat Jun 07 22:35:23 UTC 2025
+- Updated Makefile to run install, run, and test tasks outside a virtual environment
+- Documented new targets in README
