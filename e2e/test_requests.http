@@ -1,24 +1,10 @@
 # App: AWS Customer CRUD
 # Package: e2e
 # File: test_requests.http
-# Version: 0.0.5
+# Version: 0.0.6
 # Author: Bobwares
-# Date: Fri Jun 06 23:55:35 UTC 2025
-# Description: Example HTTP requests for integration testing.
-
-### Create Customer
-POST https://8z9creg24d.execute-api.us-east-1.amazonaws.com/process
-Content-Type: application/json
-
-{
-  "customerId": "55555555-5555-5555-5555-555555555555",
-  "name": {"first": "Alice", "last": "Smith"},
-  "primaryEmail": "alice@example.com",
-  "phoneNumbers": [{"label": "mobile", "number": "+14155550005"}],
-  "createdAt": "2025-06-05T00:00:00Z",
-  "updatedAt": "2025-06-05T00:00:00Z",
-  "status": "ACTIVE"
-}
-
-### Get Customer
-GET https://example.com/customers/55555555-5555-5555-5555-555555555555
+# Date: Sat Jun 07 01:41:18 UTC 2025
+# Description: Example HTTP request for hello world endpoint.
+#
+### Hello World
+GET https://example.com/

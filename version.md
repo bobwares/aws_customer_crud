@@ -87,3 +87,7 @@
 ## 0.0.21 - Sat Jun 07 01:26:56 UTC 2025
 - Added GET /customers endpoint returning hello world
 - Updated unit tests
+
+## 0.0.22 - Sat Jun 07 01:41:18 UTC 2025
+- Simplified app to only return hello world for any request
+- Removed DynamoDB logic and updated tests and e2e scripts
