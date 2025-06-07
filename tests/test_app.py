@@ -1,9 +1,9 @@
 # App: AWS Customer CRUD
 # Package: tests
 # File: test_app.py
-# Version: 0.0.5
+# Version: 0.0.6
 # Author: Bobwares
-# Date: Fri Jun 06 23:55:35 UTC 2025
+# Date: Sat Jun 07 01:26:19 UTC 2025
 # Description: Unit tests for app module.
 
 import json
@@ -35,6 +35,20 @@ def test_lambda_handler_create_customer(mock_get_dynamodb_client, mock_logger):
     assert json.loads(response['body'])['message'] == 'Customer created'
     mock_client.put_item.assert_called_once()
     mock_logger.info.assert_any_call('Creating customer %s', '33333333-3333-3333-3333-333333333333')
+
+
+@patch('src.app.get_dynamodb_client')
+def test_lambda_handler_get_customers(mock_get_dynamodb_client):
+    """Test retrieving all customers returns hello world."""
+    event = {
+        'httpMethod': 'GET',
+        'path': '/customers',
+        'headers': {},
+        'body': None
+    }
+    response = lambda_handler(event, None)
+    assert response['statusCode'] == 200
+    assert response['body'] == 'hello world'
 
 
 @patch('src.app.get_dynamodb_client')

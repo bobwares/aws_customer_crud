@@ -1,9 +1,9 @@
 # App: AWS Customer CRUD
 # Package: src
 # File: app.py
-# Version: 0.0.5
+# Version: 0.0.6
 # Author: Bobwares
-# Date: Fri Jun 06 23:55:35 UTC 2025
+# Date: Sat Jun 07 01:26:19 UTC 2025
 # Description: AWS Lambda handler for CRUD operations on DynamoDB.
 
 import json
@@ -35,6 +35,12 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         return {
             "statusCode": 201,
             "body": json.dumps({"message": "Customer created"})
+        }
+    if http_method == "GET" and path == "/customers":
+        logger.info("Returning hello world for get customers")
+        return {
+            "statusCode": 200,
+            "body": "hello world"
         }
     if http_method == "GET" and path.startswith("/customers/"):
         item_id = path.split("/")[-1]
